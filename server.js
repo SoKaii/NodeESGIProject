@@ -118,26 +118,21 @@ app.post('/signin', async function (req, res) {
 
         await collectionUsers.insertOne(user);
         res.send("token");
-    } else {
+    } 
+    else if ( erreur == "Cet identifiant est inconnu") {
+        res.status(403).send(error);
+    }
+
+    else {
         res.status(400).send(error);
     }
 
 
-
-// A completer pour renvoyer erreur 403 en cas d'username innexistant
-
-   /*    if (error === undefined) {
-        const user = {username: username, password: password};
-
-        await collectionUsers.insertOne(user);
-        res.send("token");
-    } else {
-        res.status(403).send(error);
-    } */
-
-
-
 })
+
+
+
+
 
 ;(async () => {
     console.log(`Connecting to ${DATABASE_NAME}...`);
