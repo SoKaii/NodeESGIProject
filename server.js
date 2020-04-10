@@ -178,7 +178,7 @@ app.post('/signup', async function (req, res) {
         createdAt: new Date(),
         lastUpdatedAt: null,
       };
-      const { insertedId } = await collectionNotes.insertOne(note);
+      const { insertedId } = await db.collection('notes').insertOne(note);
       res.status(200).send({
         error: null,
         note: {
@@ -205,7 +205,7 @@ app.post('/signup', async function (req, res) {
           });
       } else {
         await db.collection('notes')
-          .updateOne({ _id: ObjectID(req.params.id) }, { $set: req.body, });
+          .updateOne({ _id: ObjectID(req.params.id) }, {$set : {content : req.body, lastUpdatedAt : new Date()}});
         res.send({
           error: null,
           note: await db.collection('notes')
