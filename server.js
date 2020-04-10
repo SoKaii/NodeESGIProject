@@ -205,7 +205,7 @@ app.post('/signup', async function (req, res) {
           });
       } else {
         await db.collection('notes')
-          .updateOne({ _id: ObjectID(req.params.id) }, {$set : {content : req.body, lastUpdatedAt : new Date()}});
+            .findOneAndUpdate({_id: ObjectID(req.params.id)},{$set : {content : req.body.content, lastUpdatedAt : new Date()}});
         res.send({
           error: null,
           note: await db.collection('notes')
