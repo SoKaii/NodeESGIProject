@@ -30,7 +30,7 @@ app.use(express.json());
 })();
 
 function createToken(sub) {
-    return jwt.sign({}, JWT_KEY, {expiresIn: JWT_EXPIRATION, subject : sub});
+    return jwt.sign({}, JWT_KEY, {expiresIn: JWT_EXPIRATION, subject : sub}).toString('base64');
 };
 
 function decodeToken(token) {
@@ -163,7 +163,7 @@ app.post('/signup', async function (req, res) {
     if(user){
       res.status(200).send({
         error: null,
-        notes: await db.collection('notes').find({userId: user._id}).toArray()
+        notes: await db.collection('notes').find({userId: user._id}).sort({ createdAt : -1 }).toArray()
       });
     }
 
