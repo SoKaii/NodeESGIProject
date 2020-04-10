@@ -217,7 +217,7 @@ app.post('/signup', async function (req, res) {
 
   app.delete('/notes/:id', async function(req, res) {
     const user = await getUser(req, res);
-    const note = await db.collection('notes').findOne({_id: ObjectID(req.params.id) });
+    const note = await db.collection('notes').findOne({ _id: ObjectID(req.params.id) });
     if (user !== undefined){
       if (!note) { // Quand note est undefined il rentre dedans, mais fait quand même la suite
         res.status(404).send({
